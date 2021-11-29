@@ -81,6 +81,9 @@ vim.opt.autochdir = true
 
 vim.g.netrw_dirhistmax = 0
 
+vim.opt.syntax = 'enable'
+vim.cmd('filetype plugin indent on')
+
 vim.cmd('vsplit')
 
 
