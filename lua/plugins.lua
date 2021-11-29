@@ -5,6 +5,14 @@ if fn.empty(fn.glob(install_path)) > 0 then
   packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
 
+--look for gh cli
+local gh_path = '/usr/bin/gh'
+if fn.empty(fn.glob(gh_path)) > 0 then
+	gh_warning = function ()
+		print('WARNING: Required dep. of octo.nvim Github Cli is not installed!')
+	end
+end
+
 return require('packer').startup(function(use)
   -- My plugins here
   -- use 'foo1/bar1.nvim'
@@ -174,6 +182,10 @@ return require('packer').startup(function(use)
   -- Put this at the end after all plugins
   if packer_bootstrap then
     require('packer').sync()
+  end
+
+  if gh_warning then
+	  gh_warning()
   end
 end)
 
