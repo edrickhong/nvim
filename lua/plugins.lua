@@ -24,6 +24,7 @@ return require('packer').startup(function(use)
   use 'chentau/marks.nvim'
   use 'gennaro-tedesco/nvim-peekup'
   use 'tikhomirov/vim-glsl'
+  use 'rust-lang/rust.vim'
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
