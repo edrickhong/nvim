@@ -61,7 +61,6 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 
-vim.opt.foldenable = false
 
 
 
@@ -75,7 +74,10 @@ vim.opt.wb = false
 vim.opt.swapfile = false
 
 vim.opt.path = vim.opt.path + '**'
-vim.opt.foldmethod = 'syntax'
+
+vim.opt.foldenable = false
+vim.opt.foldmethod = 'manual'
+
 
 vim.opt.autochdir = true
 
