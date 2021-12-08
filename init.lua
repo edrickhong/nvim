@@ -122,7 +122,7 @@ function LinuxBuild()
 	if isMake(ftype) then
 		vim.bo.makeprg = 'make -j12 -B -C ' .. w_dir .. '/build/'
 		vim.cmd('make')
-		vim.cmd('copen')
+		--vim.cmd('copen')
 	else
 		print('Build Error:File type not handled!')
 	end
@@ -147,7 +147,22 @@ end
 
 
 function OpenQuickFixList()
-	vim.fn['OpenQuickFixList']()
+	vim.cmd[[
+	let list = getqflist()
+	let hasvalid = 0
+
+	for item in list
+		let i = item.valid
+		let hasvalid = hasvalid + i
+	endfor
+
+	if hasvalid
+		wincmd o
+		set splitright
+		vert cwindow
+		wincmd =
+	endif
+	]]
 end
 
 function ReloadConfig()
@@ -194,9 +209,9 @@ nvim_create_augroups({
 		{'InsertEnter','*','setlocal nohlsearch'},
 	},
 
-	--quickfix = {
-		--{'QuickFixCmdPost','[^l]*','lua OpenQuickFixList'},
-	--},
+	quickfix = {
+		{'QuickFixCmdPost','[^l]*','lua OpenQuickFixList()'},
+	},
 })
 
 
