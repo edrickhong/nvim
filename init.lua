@@ -37,9 +37,8 @@ require('marks').setup {
 }
 
 -- color scheme
-vim.cmd('colorscheme material')
-vim.g.material_style = 'deep ocean'
-
+vim.opt.termguicolors = true
+vim.cmd('colorscheme base16-default-dark')
 
 -- my settings
 vim.opt.number = true
