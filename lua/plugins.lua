@@ -18,6 +18,7 @@ return require('packer').startup(function(use)
   -- use 'foo1/bar1.nvim'
   -- use 'foo2/bar2.nvim'
   use 'wbthomason/packer.nvim'
+  use 'chriskempson/base16-vim'
 
   use {
 	  'blackCauldron7/surround.nvim',
