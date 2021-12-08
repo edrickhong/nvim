@@ -37,6 +37,9 @@ require('marks').setup {
 	mappings = {}
 }
 
+--plugin setting
+vim.g.cursorline_timeout = 5
+
 -- color scheme
 vim.opt.termguicolors = true
 vim.cmd('colorscheme base16-default-dark')

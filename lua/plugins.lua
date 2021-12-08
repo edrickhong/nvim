@@ -47,6 +47,7 @@ return require('packer').startup(function(use)
 	  end
   }
 
+  use 'yamatsum/nvim-cursorline'
 
   use {
 	  'lukas-reineke/indent-blankline.nvim',
