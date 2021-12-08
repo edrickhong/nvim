@@ -97,6 +97,10 @@ local function map(mode,lhs,rhs,opts)
 	end
 	vim.api.nvim_set_keymap(mode,lhs,rhs,options)
 end -- replace ex mode with quit window
+
+-- map fterm
+map('n','<f2>','<CMD>lua require("FTerm").toggle()<CR>')
+
 map('n','Q',':q<CR>')
 
 map('n','ZZ',':qa<CR>')

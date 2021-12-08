@@ -35,6 +35,20 @@ return require('packer').startup(function(use)
   use 'tikhomirov/vim-glsl'
 
   use {
+	  'numToStr/FTerm.nvim',
+	  config = function()
+		  require('FTerm').setup{
+			  border = 'single',
+			  dimensions = {
+				  height = 0.9,
+				  width = 0.9,
+			  },
+		  }
+	  end
+  }
+
+
+  use {
 	  'lukas-reineke/indent-blankline.nvim',
 	  config = function()
 		  require('indent_blankline').setup{
