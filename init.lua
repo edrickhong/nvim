@@ -37,6 +37,9 @@ require('marks').setup {
 	mappings = {}
 }
 
+--plugin setting
+vim.g.cursorline_timeout = 5
+
 -- color scheme
 vim.opt.termguicolors = true
 vim.cmd('colorscheme base16-default-dark')
@@ -97,6 +100,10 @@ local function map(mode,lhs,rhs,opts)
 	end
 	vim.api.nvim_set_keymap(mode,lhs,rhs,options)
 end -- replace ex mode with quit window
+
+-- map fterm
+map('n','<f2>','<CMD>lua require("FTerm").toggle()<CR>')
+
 map('n','Q',':q<CR>')
 
 map('n','ZZ',':qa<CR>')
@@ -151,7 +158,22 @@ end
 
 
 function OpenQuickFixList()
-	vim.fn['OpenQuickFixList']()
+	vim.cmd[[
+	let list = getqflist()
+	let hasvalid = 0
+
+	for item in list
+		let i = item.valid
+		let hasvalid = hasvalid + i
+	endfor
+
+	if hasvalid
+		wincmd o
+		set splitright
+		vert cwindow
+		wincmd =
+	endif
+	]]
 end
 
 function ReloadConfig()
@@ -198,9 +220,9 @@ nvim_create_augroups({
 		{'InsertEnter','*','setlocal nohlsearch'},
 	},
 
-	--quickfix = {
-	--{'QuickFixCmdPost','[^l]*','lua OpenQuickFixList'},
-	--},
+	quickfix = {
+		{'QuickFixCmdPost','[^l]*','lua OpenQuickFixList()'},
+	},
 })
 
 
