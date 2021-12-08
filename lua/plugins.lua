@@ -31,7 +31,7 @@ return require('packer').startup(function(use)
 
   use 'marko-cerovac/material.nvim'
   use 'chentau/marks.nvim'
-  use 'gennaro-tedesco/nvim-peekup'
+  use 'tversteeg/registers.nvim'
   use 'tikhomirov/vim-glsl'
 
   use {
