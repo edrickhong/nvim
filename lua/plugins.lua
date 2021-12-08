@@ -34,6 +34,14 @@ return require('packer').startup(function(use)
   use 'tikhomirov/vim-glsl'
   use 'rust-lang/rust.vim'
 
+  use {
+	  'lukas-reineke/indent-blankline.nvim',
+	  config = function()
+		  require('indent_blankline').setup{
+			  show_end_of_line = true,
+		  }
+	  end
+  }
   --required by telescope.nvim
   use 'nvim-lua/plenary.nvim'
 
