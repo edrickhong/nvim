@@ -132,7 +132,7 @@ function LinuxBuild()
 
 	if isMake(ftype) then
 		vim.bo.makeprg = 'make -j12 -B -C ' .. w_dir .. '/build/'
-		vim.cmd('make')
+		vim.cmd('make!')
 		vim.cmd('copen')
 	else
 		print('Build Error:File type not handled!')
@@ -222,6 +222,9 @@ nvim_create_augroups({
 
 	quickfix = {
 		{'QuickFixCmdPost','[^l]*','lua OpenQuickFixList()'},
+	},
+	rust_ft = {
+		{'BufNewFile,BufRead','*.rst','set filetype=rust'},
 	},
 })
 
