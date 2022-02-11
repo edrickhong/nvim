@@ -126,6 +126,10 @@ local function isMake(ftype)
 	return ftype == 'c' or ftype == 'cpp' or ftype == 'glsl'
 end
 
+local function isRust(ftype)
+	return ftype == 'rust'
+end
+
 
 function LinuxBuild()
 	ftype = vim.bo.filetype
@@ -134,8 +138,12 @@ function LinuxBuild()
 		vim.bo.makeprg = 'make -j12 -B -C ' .. w_dir .. '/build/'
 		vim.cmd('make!')
 		vim.cmd('copen')
+	elseif isRust(ftype) then
+		vim.bo.makeprg = 'cargo build'
+		vim.cmd('make!')
+		vim.cmd('copen')
 	else
-		print('Build Error:File type not handled!')
+		print('Build Error:File type not handled! File type is:',ftype)
 	end
 end
 
