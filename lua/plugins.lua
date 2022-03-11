@@ -20,14 +20,7 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use 'chriskempson/base16-vim'
 
-  use {
-	  'blackCauldron7/surround.nvim',
-	  config = function()
-		  require('surround').setup{
-			  mappings_style = 'surround'
-		  }
-	  end
-  }
+  use 'tpope/vim-surround'
 
   use 'marko-cerovac/material.nvim'
   use 'chentau/marks.nvim'
