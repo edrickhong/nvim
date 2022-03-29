@@ -21,12 +21,15 @@ return require('packer').startup(function(use)
   use 'chriskempson/base16-vim'
 
   use 'tpope/vim-surround'
+  
 
   use 'marko-cerovac/material.nvim'
   use 'chentau/marks.nvim'
   use 'tversteeg/registers.nvim'
   use 'tikhomirov/vim-glsl'
   use 'rust-lang/rust.vim'
+
+  
 
   use {
 	  'lukas-reineke/indent-blankline.nvim',
@@ -50,16 +53,43 @@ return require('packer').startup(function(use)
 	  end
   }
 
-  use 'yamatsum/nvim-cursorline'
+  use 'echasnovski/mini.nvim'
 
-  use {
-	  'lukas-reineke/indent-blankline.nvim',
-	  config = function()
-		  require('indent_blankline').setup{
-			  show_end_of_line = true,
-		  }
-	  end
+  require('mini.comment').setup(
+  {
+	  mappings = {
+		  comment = 'gc',
+		  comment_line = 'gcc',
+		  textobject = 'gc',
+	  },
   }
+  )
+
+  require('mini.cursorword').setup({
+	  delay = 100,
+  })
+
+  require('mini.jump').setup({
+	  mappings = {
+		  forward = 'f',
+		  backward = 'F',
+		  forward_till = 't',
+		  backward_till = 'T',
+		  repeat_jump = ';',
+	  },
+
+	  delay = {
+		  highlight = 250,
+		  idle_stop = 100000
+	  },
+  })
+
+  require('mini.misc').setup({
+	  make_global = {'put','put_text'},
+  })
+
+  --use 'yamatsum/nvim-cursorline'
+
   --required by telescope.nvim
   use 'nvim-lua/plenary.nvim'
 
