@@ -20,6 +20,8 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use 'chriskempson/base16-vim'
 
+  use 'tpope/vim-surround'
+
   use 'marko-cerovac/material.nvim'
   use 'chentau/marks.nvim'
   use 'tversteeg/registers.nvim'
