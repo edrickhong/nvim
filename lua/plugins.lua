@@ -53,6 +53,8 @@ return require('packer').startup(function(use)
 	  end
   }
 
+  use 'instant-markdown/vim-instant-markdown'
+
   use 'echasnovski/mini.nvim'
 
   require('mini.comment').setup(
