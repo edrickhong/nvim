@@ -132,6 +132,7 @@ function LinuxBuild()
 
 	if isMake(ftype) then
 		vim.bo.makeprg = 'make -j12 -B -C ' .. w_dir .. '/build/'
+		--vim.bo.makeprg = 'make -j12 -C ' .. w_dir .. '/build/'
 		vim.cmd('wa')
 		vim.cmd('make!')
 		vim.cmd('copen')
@@ -223,6 +224,10 @@ nvim_create_augroups({
 
 	quickfix = {
 		{'QuickFixCmdPost','[^l]*','lua OpenQuickFixList()'},
+	},
+
+	install_suckless = {
+		{'BufWritePost','config.h,config.def.h','!make && make install'}
 	},
 })
 
