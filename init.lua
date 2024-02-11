@@ -208,7 +208,7 @@ function nvim_create_augroups(definitions)
 end
 
 -- autocmds
-
+-- TODO: I think this is old. update these ig
 nvim_create_augroups({
 	reload_config = {
 		{'BufWritePre', '$MYVIMRC', 'lua ReloadConfig()'},
@@ -230,6 +230,3 @@ nvim_create_augroups({
 		{'BufWritePost','config.h,config.def.h','!make && make install'}
 	},
 })
-
-
-
