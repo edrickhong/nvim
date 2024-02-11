@@ -23,7 +23,7 @@ return require('packer').startup(function(use)
   use 'tpope/vim-surround'
 
   use 'marko-cerovac/material.nvim'
-  use 'chentau/marks.nvim'
+  use 'chentoast/marks.nvim'
   use 'tversteeg/registers.nvim'
   use 'tikhomirov/vim-glsl'
 
