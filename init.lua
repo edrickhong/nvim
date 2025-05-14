@@ -37,6 +37,38 @@ require('marks').setup {
 	mappings = {}
 }
 
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = { "nix", "c", "cpp"},
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+  },
+}
+
+-- Set up nil (Nix language server)
+require('lspconfig').nil_ls.setup {
+  settings = {
+    ["nil"] = {
+      formatting = {
+        command = { "alejandra" }
+      }
+    }
+  }
+}
+require('lspconfig').clangd.setup {}
+
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(ev)
+    local opts = { buffer = ev.buf }
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+    vim.keymap.set("n", "K",  vim.lsp.buf.hover, opts)
+    -- vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+  end
+})
+
+
+
 --plugin setting
 vim.g.cursorline_timeout = 5
 

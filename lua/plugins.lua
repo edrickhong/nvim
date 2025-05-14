@@ -62,6 +62,30 @@ return require('packer').startup(function(use)
 	  requires = { {'nvim-lua/plenary.nvim'} }
   }
 
+use {
+  'nvim-treesitter/nvim-treesitter',
+  run = ':TSUpdate'
+}
+
+use 'neovim/nvim-lspconfig'
+
+use({
+  "jackMort/ChatGPT.nvim",
+    config = function()
+      require("chatgpt").setup({
+	      
+	      api_key_cmd = "cat " .. vim.env.HOME .. "/.config/nvim/keys/chatgpt.txt" 
+      })
+    end,
+    requires = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "folke/trouble.nvim",
+      "nvim-telescope/telescope.nvim"
+    }
+})
+  
+
   --NOTE: Requires github cli to work
   --https://cli.github.com/manual/installation
   --https://cli.github.com/manual/gh_auth_login
