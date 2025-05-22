@@ -158,12 +158,16 @@ local function isMake(ftype)
 	return ftype == 'c' or ftype == 'cpp' or ftype == 'glsl'
 end
 
+c_build_cmd = 'make -j12 -B -C ' .. w_dir .. '/build/'
+if vim.loop.os_uname().sysname == 'Windows_NT'  then
+	c_build_cmd =  'msbuild ' .. w_dir .. '/build/ALL_BUILD.vcxproj /m:12'
+end
 
-function LinuxBuild()
+function Build()
 	ftype = vim.bo.filetype
 
 	if isMake(ftype) then
-		vim.bo.makeprg = 'make -j12 -B -C ' .. w_dir .. '/build/'
+		vim.bo.makeprg = c_build_cmd
 		--vim.bo.makeprg = 'make -j12 -C ' .. w_dir .. '/build/'
 		vim.cmd('wa')
 		vim.cmd('make!')
@@ -173,7 +177,7 @@ function LinuxBuild()
 	end
 end
 
-map('n','<f1>',':wa | lua LinuxBuild()<CR>')
+map('n','<f1>',':wa | lua Build()<CR>')
 
 
 function dump(o)
