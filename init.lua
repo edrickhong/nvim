@@ -46,7 +46,16 @@ require'nvim-treesitter.config'.setup {
 }
 
 -- Set up nil (Nix language server)
-require('lspconfig').nil_ls.setup {
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true,
+}
+
+
+
+vim.lsp.config('nil_ls', {
+  capabilities = capabilities,
   settings = {
     ["nil"] = {
       formatting = {
@@ -157,8 +166,8 @@ local function map(mode,lhs,rhs,opts)
 	vim.api.nvim_set_keymap(mode,lhs,rhs,options)
 end -- replace ex mode with quit window
 
--- map fterm
-map('n','<f2>','<CMD>lua require("FTerm").toggle()<CR>')
+-- map terminal mode escape key
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
 
 map('n','Q',':q<CR>')
 
@@ -171,8 +180,54 @@ map('n','<C-CR>','i<CR><Esc>')
 map('n','<Space>','i<Space><Esc>')
 map('n','<Tab>','i<Tab><Esc>')
 
+vim.keymap.set('n', 'K', function()
+  local word = vim.fn.expand('<cword>')
+
+  if vim.fn.winnr('$') == 1 then
+    vim.cmd('vsplit')
+  end
+
+  vim.cmd('wincmd w')
+  vim.cmd('Man ' .. word)
+  vim.cmd('wincmd w')
+end)
+
+
 -- allows insertion of single char
 map('n','<C-i>','i_<Esc>r')
+
+
+-- custom commands
+local scratch_buf = nil
+
+vim.api.nvim_create_user_command("Scratch", function()
+  if scratch_buf and vim.api.nvim_buf_is_valid(scratch_buf) then
+    vim.cmd("buffer " .. scratch_buf)
+    return
+  end
+
+  vim.cmd("enew")
+  scratch_buf = vim.api.nvim_get_current_buf()
+
+  vim.bo.buflisted = true
+  vim.bo.swapfile = false
+  vim.bo.undofile = false
+  vim.bo.buftype = "nofile"
+  vim.bo.bufhidden = "hide"
+
+  vim.api.nvim_buf_set_name(scratch_buf, "[Scratch]")
+  vim.bo.modified = false
+
+  vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
+    buffer = scratch_buf,
+    callback = function()
+      vim.bo.modified = false
+    end,
+  })
+end, {})
+
+
+
 
 
 -- linux building
