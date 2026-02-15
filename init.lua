@@ -1,5 +1,7 @@
 vim.opt.list = true
 vim.opt.listchars:append("eol:↴")
+
+
 -- plugins
 require('plugins')
 
@@ -191,6 +193,13 @@ vim.keymap.set('n', 'K', function()
   vim.cmd('Man ' .. word)
   vim.cmd('wincmd w')
 end)
+
+local tb = require('telescope.builtin')
+
+vim.keymap.set('n', 'sf', tb.find_files)
+vim.keymap.set('n', 'sg', tb.live_grep)
+vim.keymap.set('n', 'sb', tb.buffers)
+
 
 
 -- allows insertion of single char

@@ -30,13 +30,17 @@ return require('lazy').setup({
 	--required by telescope.nvim
 	,'nvim-lua/plenary.nvim'
 
-	--required by octo.nvim
-	,'kyazdani42/nvim-web-devicons'
-
-	--required by octo.nvim
 	,{
 		'nvim-telescope/telescope.nvim',
-		dependencies = { 'nvim-lua/plenary.nvim' }
+		dependencies = { 'nvim-lua/plenary.nvim' },
+		config = function()
+			require('telescope').load_extension('fzf')
+		end
+	}
+
+	,{
+		'nvim-telescope/telescope-fzf-native.nvim',
+		build = 'make'
 	}
 
 	,{
