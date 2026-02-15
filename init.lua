@@ -37,7 +37,7 @@ require('marks').setup {
 	mappings = {}
 }
 
-require'nvim-treesitter.configs'.setup {
+require'nvim-treesitter.config'.setup {
   ensure_installed = { "nix", "c", "cpp"},
   highlight = {
     enable = true,
@@ -54,17 +54,41 @@ require('lspconfig').nil_ls.setup {
       }
     }
   }
-}
-require('lspconfig').clangd.setup {}
+})
+vim.lsp.enable('nil_ls')
 
+
+vim.lsp.config('clangd', { capabilities = capabilities })
+vim.lsp.enable('clangd')
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)
     local opts = { buffer = ev.buf }
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-    vim.keymap.set("n", "K",  vim.lsp.buf.hover, opts)
-    -- vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts) -- go to definition
+    vim.keymap.set("n", "gh",  vim.lsp.buf.hover, opts) -- hover info
+    vim.keymap.set("n", "gr", vim.lsp.buf.rename, opts) -- rename symbol
   end
+})
+
+-- ufo settings
+vim.o.foldcolumn = '1'
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+
+vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+
+require('ufo').setup({
+  provider_selector = function(bufnr, filetype, buftype)
+    local clients = vim.lsp.get_clients({ bufnr = bufnr })
+    for _, c in ipairs(clients) do
+      if c.server_capabilities and c.server_capabilities.foldingRangeProvider then
+        return { 'lsp', 'indent' }
+      end
+    end
+    return { 'treesitter', 'indent' }
+  end,
 })
 
 
