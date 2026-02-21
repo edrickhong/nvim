@@ -40,11 +40,12 @@ require('marks').setup {
 }
 
 require'nvim-treesitter.config'.setup {
-  ensure_installed = { "nix", "c", "cpp"},
+  ensure_installed = { "nix", "c", "cpp", "python", "bash", "json", "yaml", "markdown", "lua"},
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
   },
+	indent = {enable = true},
 }
 
 -- Set up nil (Nix language server)
@@ -132,9 +133,6 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 
-
-
-
 vim.opt.errorbells = false
 vim.opt.compatible = false
 vim.opt.visualbell = false
@@ -146,8 +144,13 @@ vim.opt.swapfile = false
 
 vim.opt.path = vim.opt.path + '**'
 
-vim.opt.foldenable = false
-vim.opt.foldmethod = 'manual'
+-- indentation settings
+vim.opt.expandtab = false
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
+vim.opt.smartindent = true
+vim.opt.autoindent = true
 
 
 vim.opt.autochdir = true
